@@ -3,7 +3,15 @@ package 그리디;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
+
+/**
+ * 가장 큰 수와 두번째로 큰 수만 활용하여 더함
+ * 반복되는 수열 파악하기 (6 + 6 + 5 + 6 + 6 + 5) -> 665가 2번 반복
+ * 전체 M번 중에 K + 1의 횟수 만큼 반복
+ * K + 1로 나누어떨어지지 않을 때 가장 큰 수가 더해지는 횟수 고려!
+ */
 
 public class 큰수의법칙 {
     public static void main(String[] args) throws IOException {
@@ -27,28 +35,18 @@ public class 큰수의법칙 {
         }
 
         // 배열 정렬
-        int tmp;
-        for(int i=1; i<ar.length; i++) {
-            for(int j=0; j < ar.length-i; j++) {
-                if(ar[j] < ar[j+1]) {
-                    tmp = ar[j+1];
-                    ar[j+1] = ar[j];
-                    ar[j] = tmp;
-                }
-            }
-        }
+        Arrays.sort(ar);
+        int first = ar[n-1];    // 가장 큰 수
+        int second = ar[n-2];   // 두 번째로 큰 수
 
-        // 더하기 계산
+        // 가장 큰 수가 더해지는 횟수 계산
+        int cnt = (m / (k + 1)) * k;
+        cnt += m % (k + 1);
+
         int result = 0;
-        if(ar[0] == ar[1]) {
-            result = ar[0] * m;
-        }
-        else {
-            int cnt = m / k;
-            int sum = m % k;
-            result = (cnt * ar[0] * k) + (sum * ar[1]);
-        }
+        result += cnt * first;  // 가장 큰 수 더하기
+        result += (m - cnt) * second;
 
-        System.out.println("큰 수는 : " + result);
+        System.out.println("결과 : " + result);
     }
 }
