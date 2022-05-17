@@ -12,7 +12,6 @@ public class 왕실의나이트 {
         int b = Integer.parseInt(input.substring(1, 2));
         int cnt = 0;
 
-
         // 경우의수
         int[][] arr = {{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, -2}, {1, 2}, {-1, 2}, {-1, -2}};
 
