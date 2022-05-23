@@ -1,8 +1,6 @@
 package 탐색_DFS_BFS;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 연결리스트를 활용하여 각 노드가 연결된 형태를 기록하는 그래프 표현 방식
