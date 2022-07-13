@@ -8,11 +8,14 @@ class PG92334 {
         String[] a = {"muzi", "frodo", "apeach", "neo"};
         String[] b = {"muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi"};
 
-        solution(a, b, 2);
+        int[] solution = solution(a, b, 2);
+        for (int s : solution) {
+            System.out.print(s + " ");
+        }
     }
 
     public static int[] solution(String[] id_list, String[] report, int k) {
-        Map<String, Integer> users = new HashMap<>();
+        Map<String, Integer> users = new HashMap<>();       // user를 관리하기 위한 구조를 Map이 아니라 User 객체를 따로 선언해도됨
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         Map<String, Integer> reportedUsers = new HashMap<>();
         int[] answer = new int[id_list.length];
@@ -20,11 +23,7 @@ class PG92334 {
         // 유저 인덱스 관리 리스트 입력
         int z = 0;
         for(String s: id_list) {
-            users.put(s, z);
-            z += 1;
-        }
-
-        for(int i = 0; i< id_list.length; i++) {
+            users.put(s, z++);
             list.add(new ArrayList<Integer>());
         }
 
