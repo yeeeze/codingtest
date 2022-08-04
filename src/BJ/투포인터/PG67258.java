@@ -50,29 +50,29 @@ public class PG67258 {
         }
 
         // 통과
-//        while (true) {
-//            if (data.size() == set.size()) {
-//                data.put(gems[left], data.get(gems[left]) - 1);
-//
-//                if (data.get(gems[left]) == 0) {
-//                    data.remove(gems[left]);
-//                }
-//                left++;
-//            } else if (right == gems.length) {
-//                break;
-//            } else {
-//                data.put(gems[right], data.getOrDefault(gems[right], 0) + 1);
-//                right++;
-//            }
-//
-//            if (data.size() == set.size()) {
-//                if (distance > right - left) {
-//                    distance = right - left;
-//                    start = left + 1;
-//                    end = right;
-//                }
-//            }
-//        }
+        while (true) {
+            if (data.size() == set.size()) {
+                data.put(gems[left], data.get(gems[left]) - 1);
+
+                if (data.get(gems[left]) == 0) {
+                    data.remove(gems[left]);
+                }
+                left++;
+            } else if (right == gems.length) {
+                break;
+            } else {
+                data.put(gems[right], data.getOrDefault(gems[right], 0) + 1);
+                right++;
+            }
+
+            if (data.size() == set.size()) {
+                if (distance > right - left) {
+                    distance = right - left;
+                    start = left + 1;
+                    end = right;
+                }
+            }
+        }
         answer[0] = start;
         answer[1] = end;
 
