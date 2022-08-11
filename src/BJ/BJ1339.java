@@ -2,71 +2,43 @@ package BJ;
 
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-
-// 각 알파벳을 0~9 숫자 중 하나로 바꾼다
+import java.util.*;
 
 /**
- * 반례 : 10
- * ABB
- * BB
- * BB
- * BB
- * BB
- * BB
- * BB
- * BB
- * BB
- * BB
+ * 각 알파벳을 0~9 숫자 중 하나로 바꾼다.
+ * 자릿수가 큰 알파벳 순으로 할당해준다. : 가장 좋은 것(자릿수가 큰)부터 선택하는 그리디
  *
- * A : 8, B : 9가 최댓값인데 내가 생각한 대로 하면 자릿수가 큰 A가 9, B = 8 반대로 할당됨
+ * 자바 제곱수 구하기 -> Math.pow()
  */
 public class BJ1339 {
 
-    private static Map<String, Integer> map = new HashMap<>();
+    private static Map<Integer, Integer> map = new HashMap<>();
     private static int n;
-    private static String[] word;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         n = Integer.parseInt(br.readLine());
 
-        word = new String[n];
-
-        int max = 0;
+        // 자릿수 계산
         for (int i = 0; i < n; i++) {
-            word[i] = br.readLine();
-            max = Math.max(max, word[i].length());
-        }
-
-        int cnt = 9;
-        for (int i = max - 1; i >= 0; i--) {
-            for (int j = 0; j < word.length; j++) {
-                if (word[j].length() - 1 < i) {
-                    continue;
-                } else {
-                    String w = String.valueOf(word[j].charAt(word[j].length() - 1 - i));
-                    if (map.containsKey(w)) {
-                        continue;
-                    } else {
-                        map.put(w, cnt);
-                        cnt--;
-                    }
-                }
+            String word = br.readLine();
+            for (int j = 0; j < word.length(); j++) {
+                int num = map.getOrDefault(word.charAt(j) - 'A', 0);
+                map.put(word.charAt(j) - 'A', num + (int) Math.pow(10, word.length() - 1 - j));
             }
         }
 
-        long result = 0;
-        for (int i = 0; i < word.length; i++) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < word[i].length(); j++) {
-                sb.append(map.get(String.valueOf(word[i].charAt(j))));
-            }
-            result += Integer.parseInt(String.valueOf(sb));
-        }
+        List<Integer> keyList = new ArrayList<>(map.keySet());
+        Collections.sort(keyList, Comparator.comparingInt(o -> map.get(o)));  // 오름차순
+        // 정렬 기준 없으면 에러남
 
+        int result = 0;
+        int num = 10 - map.size();  // 최솟값부터 할당
+        for (int key : keyList) {
+            result += map.get(key) * num;
+            num++;
+        }
         bw.write(String.valueOf(result));
         bw.flush();
         bw.close();
