@@ -20,12 +20,12 @@ public class 퇴사 {
             list.add(new Day(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
         }
 
-        int[] dp = new int[N];
-        if (list.get(N - 1).time == 1) {
-            dp[N - 1] = list.get(N - 1).money;
-        }
+        int[] dp = new int[N + 1];  // 뒤에서부터 그 시점에 최댓값 기록
 
-        for (int i = N - 2; i >= 0; i--) {
+        // dp 테이블을 1개 더 생성해놓으면 불필요한 계산 코드가 줄어든다
+
+        for (int i = N - 1; i >= 0; i--) {
+            // 시간 내에 해당 상담이 끝나는 경우
             if (i + list.get(i).time <= N) {
                 dp[i] = Math.max(dp[i + 1], list.get(i).money + (i + list.get(i).time < N ? dp[i + list.get(i).time] : 0));
             } else {
